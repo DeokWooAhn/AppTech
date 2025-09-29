@@ -19,7 +19,7 @@ struct HomeView: View {
         NavigationView {
             Group {
                 if viewModel.isLoading {
-                    ProgressView("데이터 로딩중...")
+                    ProgressView("데이터 로딩 중...")
                 } else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                 } else {
