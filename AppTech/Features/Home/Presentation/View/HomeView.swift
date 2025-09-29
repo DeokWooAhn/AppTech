@@ -19,7 +19,7 @@ struct HomeView: View {
         NavigationView {
             Group {
                 if viewModel.isLoading {
-                    ProgressVIew("데이터 로딩 중...")
+                    ProgressView("데이터 로딩 중...")
                 } else if let errorMessage = viewModel.errorMessage {
                     Text(errorMessage)
                 } else {
@@ -41,7 +41,7 @@ struct HomeView: View {
                 }
             }
             .onAppear {
-                if viewModel.featuerItems.isEmpty {
+                if viewModel.featureItems.isEmpty {
                     viewModel.loadHomeData()
                 }
             }
@@ -55,8 +55,7 @@ struct HomeView: View {
                     .padding(.horizontal)
                 
                 LazyVGrid(columns: columns, spacing: 16) {
-                    ForEach(viewModel.featureItems) {
-                        items in
+                    ForEach(viewModel.featureItems) { item in
                         FeatureCardView(item: item)
                     }
                 }
@@ -70,9 +69,10 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        let repository = MockHomeRepository()
+        let repository = MockHomeRepositoryImpl()
         let useCase = GetHomeDataUseCase(repository: repository)
         let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
         
         HomeView(viewModel: viewModel)
     }
+}

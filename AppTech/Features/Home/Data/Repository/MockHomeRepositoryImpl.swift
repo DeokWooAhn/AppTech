@@ -1,0 +1,29 @@
+//
+//  MockHomeRepositoryImpl.swift
+//  AppTech
+//
+//  Created by AhnDeokWoo on 9/29/25.
+//
+
+import Foundation
+
+class MockHomeRepositoryImpl: HomeRepository {
+    func fetchHomeData() async throws -> (UserProfile, Balance, [FeatureItem]) {
+        // api 작업
+        
+        try await Task.sleep(nanoseconds: 1_000_000_000)
+        
+        let user = UserProfile(name: "dwahn", ticket: 30)
+        let balance = Balance(amount: 100000)
+        let features = [
+            FeatureItem(iconName: "gift.fill", title: "이벤트", subtitle: "행운과 함께, 풍성한 혜택"),
+            FeatureItem(iconName: "dollarsign.circle.fill", title: "바로 적립", subtitle: "바로 적립 가능한, 다양한 광고", isHighlighted: true),
+            FeatureItem(iconName: "person.2.fill", title: "친구 초대하기", subtitle: "추천인 C 1,000, 친구적립 ~25%"),
+            FeatureItem(iconName: "cart.fill", title: "상점", subtitle: "적립 캐시로 상품 교환"),
+            FeatureItem(iconName: "gearshape.fill", title: "설정", subtitle: "알람, 내 정보, 잠금화면 배경 설정"),
+            FeatureItem(iconName: "archivebox.fill", title: "보관함", subtitle: "보관함으로 이동")
+        ]
+        
+        return (user, balance, features)
+    }
+}

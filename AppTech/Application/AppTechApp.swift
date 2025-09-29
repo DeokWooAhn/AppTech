@@ -9,9 +9,19 @@ import SwiftUI
 
 @main
 struct AppTechApp: App {
+    private let homeViewModel: HomeViewModel
+    
+    init() {
+        let homeRepository = MockHomeRepositoryImpl()
+        
+        let getHomeDataUseCase = GetHomeDataUseCase(repository: homeRepository)
+        
+        self.homeViewModel = HomeViewModel(getHomeDataUseCase: getHomeDataUseCase)
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView(viewModel: homeViewModel)
         }
     }
 }

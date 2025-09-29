@@ -28,5 +28,5 @@ struct BalanceHeaderView: View {
 }
 
 #Preview {
-    BalanceHeaderView(balanceText: "dd")
+    BalanceHeaderView(balanceText: "C 100000")
 }
