@@ -8,13 +8,16 @@
 import Foundation
 
 class MockHomeRepositoryImpl: HomeRepository {
-    func fetchHomeData() async throws -> (UserProfile, Balance, [FeatureItem]) {
+    func fetchHomeData() async throws -> (UserProfile, Balance,[NewsItem], [FeatureItem]) {
         // api 작업
         
         try await Task.sleep(nanoseconds: 1_000_000_000)
         
         let user = UserProfile(name: "dwahn", ticket: 30)
         let balance = Balance(amount: 100000)
+        let newsItem = [
+            NewsItem(title: "'손흥민 주장 논란 격파', 홍명보 감독, 손흥민 주장역할 잘 하고 있다[오!쎈현장]"),
+        ]
         let features = [
             FeatureItem(iconName: "gift.fill", title: "이벤트", subtitle: "행운과 함께, 풍성한 혜택"),
             FeatureItem(iconName: "dollarsign.circle.fill", title: "바로 적립", subtitle: "바로 적립 가능한, 다양한 광고", isHighlighted: true),
@@ -24,6 +27,6 @@ class MockHomeRepositoryImpl: HomeRepository {
             FeatureItem(iconName: "archivebox.fill", title: "보관함", subtitle: "보관함으로 이동")
         ]
         
-        return (user, balance, features)
+        return (user, balance, newsItem, features)
     }
 }

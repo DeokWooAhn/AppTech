@@ -54,12 +54,23 @@ struct HomeView: View {
                 BalanceHeaderView(balanceText: viewModel.formattedBalance)
                     .padding(.horizontal)
                 
+                if !viewModel.newsItems.isEmpty {
+                    NewsBannerView(newsItems: viewModel.newsItems)
+                        .frame(height: 40)
+                        .padding(.horizontal)
+                }
+                
                 LazyVGrid(columns: columns, spacing: 16) {
                     ForEach(viewModel.featureItems) { item in
                         FeatureCardView(item: item)
                     }
                 }
                 .padding(.horizontal)
+                
+                AdPlaceholderView()
+                    .frame(height: 100)
+                    .padding(.horizontal)
+                    .padding(.bottom, 20)
             }
             .padding(.top)
         }
@@ -67,12 +78,24 @@ struct HomeView: View {
     }
 }
 
-struct HomeView_Previews: PreviewProvider {
-    static var previews: some View {
-        let repository = MockHomeRepositoryImpl()
-        let useCase = GetHomeDataUseCase(repository: repository)
-        let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
-        
-        HomeView(viewModel: viewModel)
+#Preview("Loaded State") {
+    let repository = MockHomeRepositoryImpl()
+    let useCase = GetHomeDataUseCase(repository: repository)
+    let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
+    
+    Task {
+        await viewModel.loadHomeData()
     }
+    
+    return HomeView(viewModel: viewModel)
+}
+
+#Preview("Loading State") {
+    let repository = MockHomeRepositoryImpl()
+    let useCase = GetHomeDataUseCase(repository: repository)
+    let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
+    
+    viewModel.isLoading = true
+    
+    return HomeView(viewModel: viewModel)
 }

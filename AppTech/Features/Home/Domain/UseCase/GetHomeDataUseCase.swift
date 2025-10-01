@@ -14,7 +14,7 @@ class GetHomeDataUseCase {
         self.respository = repository
     }
     
-    func execute() async throws -> (UserProfile, Balance, [FeatureItem]) {
+    func execute() async throws -> (UserProfile, Balance, [NewsItem], [FeatureItem]) {
         try await respository.fetchHomeData()
     }
     

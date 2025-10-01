@@ -11,6 +11,7 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var userProfile: UserProfile?
     @Published var balance: Balance?
+    @Published var newsItems: [NewsItem] = []
     @Published var featureItems: [FeatureItem] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
@@ -27,9 +28,10 @@ class HomeViewModel: ObservableObject {
         
         Task {
             do {
-                let (user, balance, features) = try await getHomeDataUseCase.execute()
+                let (user, balance, news, features) = try await getHomeDataUseCase.execute()
                 self.userProfile = user
                 self.balance = balance
+                self.newsItems = news
                 self.featureItems = features
             } catch {
                 self.errorMessage = "데이터를 불러오는데 실패했습니다 : \(error.localizedDescription)"
