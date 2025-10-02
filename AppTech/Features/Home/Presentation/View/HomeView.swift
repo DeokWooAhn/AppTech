@@ -68,7 +68,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
                 AdPlaceholderView()
-                    .frame(height: 100)
+                    .frame(height: 300)
                     .padding(.horizontal)
                     .padding(.bottom, 20)
             }

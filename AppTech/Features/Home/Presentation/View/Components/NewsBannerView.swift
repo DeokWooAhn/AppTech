@@ -30,7 +30,8 @@ struct NewsBannerView: View {
                         .foregroundColor(.gray)
                 }
             }
-            .transition(.opacity)
+            .transition(.opacity.animation(.easeInOut(duration: 0.5)))
+            .id(currentIndex)
             
             Spacer()
         }
