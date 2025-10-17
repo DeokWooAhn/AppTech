@@ -9,46 +9,57 @@ import SwiftUI
 
 struct NewsBannerView: View {
     let newsItems: [NewsItem]
-    @State private var currentIndex: Int = 0
-    let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+    @State private var selectedNews: NewsItem?
+    @State private var animate: Bool = false
     
     var body: some View {
-        HStack(spacing: 8) {
-            Image(systemName: "newspaper.fill")
-                .foregroundColor(.gray)
-                .font(.caption)
+        HStack(alignment: .center, spacing: 8) {
+            RoundedRectangle(cornerRadius: 6)
+                .fill(.gray)
+                .frame(width: 40, height: 25)
+                .overlay(
+                    Text("뉴스")
+                        .font(.system(size: 14))
+                        .foregroundColor(.white)
+                )
             
-            Group {
-                if !newsItems.isEmpty {
-                    Text(newsItems[currentIndex].title)
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                        .lineLimit(1)
-                } else {
-                    Text("No News")
-                        .font(.caption)
-                        .foregroundColor(.gray)
+            if let news = selectedNews {
+                GeometryReader { geo in
+                    Text(news.title)
+                        .font(.system(size: 16))
+                        .foregroundColor(.white)
+                        .offset(x: animate ? -geo.size.width : geo.size.width)
+                        .position(y: 14)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .animation(
+                            Animation.linear(duration: 15.0)
+                                .repeatForever(autoreverses: false),
+                            value: animate
+                        )
+                        .onAppear {
+                            animate = true
+                        }
                 }
-            }
-            .transition(.opacity.animation(.easeInOut(duration: 0.5)))
-            .id(currentIndex)
-            
-            Spacer()
-        }
-        .padding(.vertical, 8)
-        .padding(.horizontal, 12)
-        .background(Color.white)
-        .cornerRadius(8)
-        .onReceive(timer) { _ in
-            if !newsItems.isEmpty {
-                withAnimation {
-                    currentIndex = (currentIndex + 1) % newsItems.count
-                }
+                .clipped()
+            } else {
+                Text("Loading News...")
+                    .font(.caption)
+                    .foregroundColor(.white)
             }
         }
+        .padding(.horizontal, 10)
+        .background(Color(.darkGray))
+        .cornerRadius(6)
+        .onAppear {
+            // 초기 랜덤 뉴스 선택
+            if let random = newsItems.randomElement() {
+                selectedNews = random
+            }
+        }
+        .frame(height: 30)
     }
 }
 
 #Preview {
-    NewsBannerView(newsItems: [NewsItem](repeating: .init(title: "Test"), count: 5))
+    NewsBannerView(newsItems: [NewsItem](repeating: .init(title: "Test Marquee News"), count: 5))
 }

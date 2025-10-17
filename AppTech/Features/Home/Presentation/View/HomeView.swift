@@ -11,8 +11,8 @@ struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     
     private let columns: [GridItem] = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible(), spacing: 16),
+        GridItem(.flexible(), spacing: 10),
+        GridItem(.flexible(), spacing: 10),
     ]
     
     var body: some View {
@@ -50,13 +50,13 @@ struct HomeView: View {
     
     private var mainContentView: some View {
         ScrollView {
-            VStack(spacing: 24) {
+            VStack(spacing: 7) {
                 BalanceHeaderView(balanceText: viewModel.formattedBalance)
                     .padding(.horizontal)
                 
                 if !viewModel.newsItems.isEmpty {
                     NewsBannerView(newsItems: viewModel.newsItems)
-                        .frame(height: 40)
+                        .frame(height: 35)
                         .padding(.horizontal)
                 }
                 

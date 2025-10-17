@@ -12,21 +12,26 @@ struct FeatureCardView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Image(systemName: item.iconName)
-                .font(.title2)
-                .foregroundColor(item.isHighlighted ? .white : .accentColor)
-            
-            Text(item.title)
+         Text(item.title)
                 .font(.headline)
                 .foregroundColor(item.isHighlighted ? .white: .primary)
             
             Text(item.subtitle)
                 .font(.caption)
                 .foregroundColor(item.isHighlighted ? .white.opacity(0.8) : .secondary)
+            
+            Spacer()
+            
+            HStack {
+                Spacer()
+                Image(systemName: item.iconName)
+                    .font(.title2)
+                    .foregroundColor(item.isHighlighted ? .white : .accentColor)
+            }
         }
         .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
         .padding()
-        .background(item.isHighlighted ? Color.blue : Color(.systemGray6))
+        .background(item.isHighlighted ? Color.blue : Color(.white))
         .cornerRadius(12)
     }
 }

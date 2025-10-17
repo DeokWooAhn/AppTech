@@ -22,7 +22,7 @@ struct BalanceHeaderView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(Color(.systemGray6))
+        .background(Color(.yellow))
         .cornerRadius(12)
     }
 }

@@ -17,6 +17,8 @@ class MockHomeRepositoryImpl: HomeRepository {
         let balance = Balance(amount: 100000)
         let newsItem = [
             NewsItem(title: "'손흥민 주장 논란 격파', 홍명보 감독, 손흥민 주장역할 잘 하고 있다[오!쎈현장]"),
+            NewsItem(title: "세계 최강 안세영, 세계 배드민턴 연맹 신임 선수 위원 위촉"),
+            NewsItem(title: "쿠팡, 인생네컷과 여행 이벤트 협업... 사진찍고 숙박권 받으세요"),
         ]
         let features = [
             FeatureItem(iconName: "gift.fill", title: "이벤트", subtitle: "행운과 함께, 풍성한 혜택"),
