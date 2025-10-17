@@ -12,18 +12,17 @@ struct BalanceHeaderView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("내 캐시")
-                .font(.callout)
-                .foregroundColor(.secondary)
+            Text("캐시스크린")
+                .font(.title3)
+                .foregroundColor(.black)
             
             Text(balanceText)
-                .font(.system(size: 36, weight: .bold))
-                .foregroundColor(.primary)
+                .font(.system(size: 36))
+                .foregroundColor(.black)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
         .background(Color(.yellow))
-        .cornerRadius(12)
     }
 }
 

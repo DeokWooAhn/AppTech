@@ -9,11 +9,14 @@ import SwiftUI
 
 struct NewsBannerView: View {
     let newsItems: [NewsItem]
+    
     @State private var selectedNews: NewsItem?
-    @State private var animate: Bool = false
+    @State private var offset: CGFloat = 0
+    @State private var textWidth: CGFloat = 0
+    @State private var containerWidth: CGFloat = 0
     
     var body: some View {
-        HStack(alignment: .center, spacing: 8) {
+        HStack(spacing: 8) {
             RoundedRectangle(cornerRadius: 6)
                 .fill(.gray)
                 .frame(width: 40, height: 25)
@@ -25,40 +28,54 @@ struct NewsBannerView: View {
             
             if let news = selectedNews {
                 GeometryReader { geo in
-                    Text(news.title)
-                        .font(.system(size: 16))
-                        .foregroundColor(.white)
-                        .offset(x: animate ? -geo.size.width : geo.size.width)
-                        .position(y: 14)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .animation(
-                            Animation.linear(duration: 15.0)
-                                .repeatForever(autoreverses: false),
-                            value: animate
-                        )
-                        .onAppear {
-                            animate = true
-                        }
+                    let width = geo.size.width
+                    ZStack(alignment: .leading) {
+                        Text(news.title)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                            .frame(maxHeight: .infinity, alignment: .center)
+                            .background(
+                                GeometryReader { textGeo in
+                                    Color.clear
+                                        .onAppear {
+                                            textWidth = textGeo.size.width
+                                            containerWidth = width
+                                            startMarquee()
+                                        }
+                                }
+                            )
+                            .offset(x: offset)
+                        
+                    }
+                    .clipped()
                 }
-                .clipped()
             } else {
-                Text("Loading News...")
-                    .font(.caption)
+                Text("뉴스를 불러오는 중입니다.")
                     .foregroundColor(.white)
             }
         }
+        .frame(height: 30)
         .padding(.horizontal, 10)
         .background(Color(.darkGray))
         .cornerRadius(6)
         .onAppear {
-            // 초기 랜덤 뉴스 선택
             if let random = newsItems.randomElement() {
                 selectedNews = random
             }
         }
-        .frame(height: 30)
+    }
+    
+    func startMarquee() {
+        // 처음 위치는 오른쪽 바깥
+        offset = containerWidth
+        // 애니메이션 시작
+        withAnimation(.linear(duration: 15.0).repeatForever(autoreverses: false)) {
+            offset = -textWidth
+        }
     }
 }
+
 
 #Preview {
     NewsBannerView(newsItems: [NewsItem](repeating: .init(title: "Test Marquee News"), count: 5))

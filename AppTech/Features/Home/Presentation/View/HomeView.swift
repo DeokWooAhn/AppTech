@@ -26,20 +26,20 @@ struct HomeView: View {
                     mainContentView
                 }
             }
-            .navigationTitle("캐시스크린")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        
-                    }) {
-                        HStack {
-                            Text(viewModel.userProfile?.name ?? "")
-                            Image(systemName: "person.circle.fill")
-                                .font(.title2)
-                        }
-                    }
-                }
-            }
+//            .navigationTitle("캐시스크린")
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        
+//                    }) {
+//                        HStack {
+//                            Text(viewModel.userProfile?.name ?? "")
+//                            Image(systemName: "person.circle.fill")
+//                                .font(.title2)
+//                        }
+//                    }
+//                }
+//            }
             .onAppear {
                 if viewModel.featureItems.isEmpty {
                     viewModel.loadHomeData()
@@ -50,9 +50,8 @@ struct HomeView: View {
     
     private var mainContentView: some View {
         ScrollView {
-            VStack(spacing: 7) {
+            VStack(spacing: 8) {
                 BalanceHeaderView(balanceText: viewModel.formattedBalance)
-                    .padding(.horizontal)
                 
                 if !viewModel.newsItems.isEmpty {
                     NewsBannerView(newsItems: viewModel.newsItems)
@@ -60,7 +59,7 @@ struct HomeView: View {
                         .padding(.horizontal)
                 }
                 
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.featureItems) { item in
                         FeatureCardView(item: item)
                     }

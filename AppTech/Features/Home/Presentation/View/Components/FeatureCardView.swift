@@ -26,10 +26,10 @@ struct FeatureCardView: View {
                 Spacer()
                 Image(systemName: item.iconName)
                     .font(.title2)
-                    .foregroundColor(item.isHighlighted ? .white : .accentColor)
+                    .foregroundColor(item.isHighlighted ? .yellow : .black)
             }
         }
-        .frame(maxWidth: .infinity, minHeight: 120, alignment: .topLeading)
+        .frame(maxWidth: .infinity, maxHeight: 110, alignment: .topLeading)
         .padding()
         .background(item.isHighlighted ? Color.blue : Color(.white))
         .cornerRadius(12)
