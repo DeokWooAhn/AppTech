@@ -51,7 +51,11 @@ struct HomeView: View {
     private var mainContentView: some View {
         ScrollView {
             VStack(spacing: 8) {
-                BalanceHeaderView(balanceText: viewModel.formattedBalance)
+                HeaderView(
+                    userName: viewModel.userItem?.name ?? "",
+                    userCash: viewModel.formattedCash,
+                    userTicket: viewModel.formattedTicket
+                )
                 
                 if !viewModel.newsItems.isEmpty {
                     NewsBannerView(newsItems: viewModel.newsItems)
@@ -67,7 +71,7 @@ struct HomeView: View {
                 .padding(.horizontal)
                 
                 AdPlaceholderView()
-                    .frame(height: 300)
+                    .frame(width: 300, height: 250)
                     .padding(.horizontal)
                     .padding(.bottom, 20)
             }

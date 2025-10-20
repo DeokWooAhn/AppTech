@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct UserProfile {
+struct UserItem {
     let name: String
+    let cash: Int
     let ticket: Int
 }

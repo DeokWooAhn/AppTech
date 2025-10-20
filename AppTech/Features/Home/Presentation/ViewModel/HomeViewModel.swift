@@ -9,8 +9,7 @@ import Foundation
 
 @MainActor
 class HomeViewModel: ObservableObject {
-    @Published var userProfile: UserProfile?
-    @Published var balance: Balance?
+    @Published var userItem: UserItem?
     @Published var newsItems: [NewsItem] = []
     @Published var featureItems: [FeatureItem] = []
     @Published var isLoading = false
@@ -28,9 +27,8 @@ class HomeViewModel: ObservableObject {
         
         Task {
             do {
-                let (user, balance, news, features) = try await getHomeDataUseCase.execute()
-                self.userProfile = user
-                self.balance = balance
+                let (user, news, features) = try await getHomeDataUseCase.execute()
+                self.userItem = user
                 self.newsItems = news
                 self.featureItems = features
             } catch {
@@ -40,10 +38,17 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    var formattedBalance: String {
-        guard let amount = balance?.amount else { return "C 0"}
+    var formattedCash: String {
+        guard let cash = userItem?.cash else { return "C 0"}
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
-        return "C \(numberFormatter.string(from: NSNumber(value: amount)) ?? "0")"
+        return "C \(numberFormatter.string(from: NSNumber(value: cash)) ?? "0")"
+    }
+    
+    var formattedTicket: String {
+        guard let ticket = userItem?.ticket else { return "0"}
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        return "\(numberFormatter.string(from: NSNumber(value: ticket)) ?? "0")"
     }
 }
