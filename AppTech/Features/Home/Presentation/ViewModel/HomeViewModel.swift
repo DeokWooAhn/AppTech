@@ -15,10 +15,15 @@ class HomeViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var errorMessage: String?
     
-    private let getHomeDataUseCase: GetHomeDataUseCase
+    private let getUserDataUseCase: GetUserDataUseCase
+    private let getNewsDataUseCase: GetNewsDataUseCase
     
-    init(getHomeDataUseCase: GetHomeDataUseCase) {
-        self.getHomeDataUseCase = getHomeDataUseCase
+    init(
+        getUserDataUseCase: GetUserDataUseCase,
+        getNewsDataUseCase: GetNewsDataUseCase
+    ) {
+        self.getUserDataUseCase = getUserDataUseCase
+        self.getNewsDataUseCase = getNewsDataUseCase
     }
     
     func loadHomeData() {
@@ -27,10 +32,11 @@ class HomeViewModel: ObservableObject {
         
         Task {
             do {
-                let (user, news, features) = try await getHomeDataUseCase.execute()
-                self.userItem = user
-                self.newsItems = news
-                self.featureItems = features
+                async let user = getUserDataUseCase.execute()
+                async let news = getNewsDataUseCase.execute()
+                
+                self.userItem = try await user
+                self.newsItems = try await news
             } catch {
                 self.errorMessage = "데이터를 불러오는데 실패했습니다 : \(error.localizedDescription)"
             }

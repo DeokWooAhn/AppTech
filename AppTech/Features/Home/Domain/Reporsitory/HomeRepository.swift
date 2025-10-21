@@ -8,5 +8,5 @@
 import Foundation
 
 protocol HomeRepository {
-    func fetchHomeData() async throws -> (UserItem, [NewsItem], [FeatureItem])
+    func fetchNewsData() async throws -> [NewsItem]
 }
