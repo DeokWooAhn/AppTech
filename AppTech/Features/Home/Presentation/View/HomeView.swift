@@ -41,7 +41,7 @@ struct HomeView: View {
 //                }
 //            }
             .onAppear {
-                if viewModel.featureItems.isEmpty {
+                if viewModel.userItem == nil {
                     viewModel.loadHomeData()
                 }
             }
@@ -52,7 +52,7 @@ struct HomeView: View {
         ScrollView {
             VStack(spacing: 8) {
                 HeaderView(
-                    userName: viewModel.userItem?.name ?? "",
+                    userName: viewModel.userItem?.name ?? "error",
                     userCash: viewModel.formattedCash,
                     userTicket: viewModel.formattedTicket
                 )
@@ -64,7 +64,7 @@ struct HomeView: View {
                 }
                 
                 LazyVGrid(columns: columns, spacing: 8) {
-                    ForEach(viewModel.featureItems) { item in
+                    ForEach(viewModel.featureItem) { item in
                         FeatureCardView(item: item)
                     }
                 }
@@ -79,26 +79,4 @@ struct HomeView: View {
         }
         .background(Color(.systemGroupedBackground))
     }
-}
-
-#Preview("Loaded State") {
-    let repository = MockHomeRepositoryImpl()
-    let useCase = GetHomeDataUseCase(repository: repository)
-    let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
-    
-    Task {
-        await viewModel.loadHomeData()
-    }
-    
-    return HomeView(viewModel: viewModel)
-}
-
-#Preview("Loading State") {
-    let repository = MockHomeRepositoryImpl()
-    let useCase = GetHomeDataUseCase(repository: repository)
-    let viewModel = HomeViewModel(getHomeDataUseCase: useCase)
-    
-    viewModel.isLoading = true
-    
-    return HomeView(viewModel: viewModel)
 }

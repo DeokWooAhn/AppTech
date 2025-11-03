@@ -11,4 +11,5 @@ struct UserItem {
     let name: String
     let cash: Int
     let ticket: Int
+    let welcomeMode: Bool
 }

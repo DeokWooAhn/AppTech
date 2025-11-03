@@ -11,7 +11,6 @@ import Foundation
 class HomeViewModel: ObservableObject {
     @Published var userItem: UserItem?
     @Published var newsItems: [NewsItem] = []
-    @Published var featureItems: [FeatureItem] = []
     @Published var isLoading = false
     @Published var errorMessage: String?
     
@@ -41,6 +40,23 @@ class HomeViewModel: ObservableObject {
                 self.errorMessage = "데이터를 불러오는데 실패했습니다 : \(error.localizedDescription)"
             }
             isLoading = false
+        }
+    }
+    
+    var featureItem: [FeatureItem] {
+        let allFeatures = [
+            FeatureItem(iconName: "gift", title: "이벤트", subtitle: "행운과 함께 \n풍성한 혜택"),
+            FeatureItem(iconName: "dollarsign.circle.fill", title: "바로 적립", subtitle: "바로 적립 가능한 \n다양한 광고", isHighlighted: true),
+            FeatureItem(iconName: "person.2", title: "친구 초대하기", subtitle: "추천인 C 1,000, T 5  \n친구적립 ~25%"),
+            FeatureItem(iconName: "cart", title: "상점", subtitle: "적립 캐시로 상품 교환"),
+            FeatureItem(iconName: "gearshape", title: "설정", subtitle: "알람, 내 정보 \n잠금화면 배경 설정"),
+            FeatureItem(iconName: "archivebox", title: "보관함", subtitle: "보관함으로 이동")
+        ]
+        
+        if userItem?.welcomeMode == true {
+            return Array(allFeatures.prefix(4))
+        } else {
+            return allFeatures
         }
     }
     
