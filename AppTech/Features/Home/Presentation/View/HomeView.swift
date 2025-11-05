@@ -10,40 +10,52 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
     
+    @State private var isShowingCashUnBoxing = false
+    @State private var navigateToEventView = false
+    
     private let columns: [GridItem] = [
         GridItem(.flexible(), spacing: 10),
         GridItem(.flexible(), spacing: 10),
     ]
     
     var body: some View {
-        NavigationView {
-            Group {
-                if viewModel.isLoading {
-                    ProgressView("데이터 로딩중...")
-                } else if let errorMessage = viewModel.errorMessage {
-                    Text(errorMessage)
-                } else {
-                    mainContentView
+        ZStack {
+            NavigationStack {
+                Group {
+                    if viewModel.isLoading {
+                        ProgressView("데이터 로딩중...")
+                    } else if let errorMessage = viewModel.errorMessage {
+                        Text(errorMessage)
+                    } else {
+                        mainContentView
+                    }
+                }
+                .onAppear {
+                    if viewModel.userItem == nil {
+                        viewModel.loadHomeData()
+                    }
+                }
+    //            .navigationTitle("캐시스크린")
+    //            .toolbar {
+    //                ToolbarItem(placement: .navigationBarTrailing) {
+    //                    Button(action: {
+    //
+    //                    }) {
+    //                        HStack {
+    //                            Text(viewModel.userProfile?.name ?? "")
+    //                            Image(systemName: "person.circle.fill")
+    //                                .font(.title2)
+    //                        }
+    //                    }
+    //                }
+    //            }
+                .navigationDestination(isPresented: $navigateToEventView) {
+                    EventView()
                 }
             }
-//            .navigationTitle("캐시스크린")
-//            .toolbar {
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    Button(action: {
-//                        
-//                    }) {
-//                        HStack {
-//                            Text(viewModel.userProfile?.name ?? "")
-//                            Image(systemName: "person.circle.fill")
-//                                .font(.title2)
-//                        }
-//                    }
-//                }
-//            }
-            .onAppear {
-                if viewModel.userItem == nil {
-                    viewModel.loadHomeData()
-                }
+            
+            if isShowingCashUnBoxing {
+                
             }
         }
     }
