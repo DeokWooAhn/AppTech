@@ -55,7 +55,17 @@ struct HomeView: View {
             }
             
             if isShowingCashUnBoxing {
-                
+                CashUnBoxingDialog(isPresented: $isShowingCashUnBoxing)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.5))
+                    .edgesIgnoringSafeArea(.all)
+                    .transition(.opacity.animation(.easeInOut))
+                    .zIndex(1)
+            }
+        }
+        .onChange(of: isShowingCashUnBoxing) { oldValue, newValue in
+            if oldValue == true && newValue == false {
+                navigateToEventView = true
             }
         }
     }
