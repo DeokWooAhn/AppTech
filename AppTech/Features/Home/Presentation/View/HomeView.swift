@@ -56,13 +56,11 @@ struct HomeView: View {
             
             if isShowingCashUnBoxing {
                 CashUnBoxingDialog(isPresented: $isShowingCashUnBoxing)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .edgesIgnoringSafeArea(.all)
-                    .transition(.opacity.animation(.easeInOut))
+                    .transition(.opacity)
                     .zIndex(1)
             }
         }
+        .animation(.easeInOut, value: isShowingCashUnBoxing)
         .onChange(of: isShowingCashUnBoxing) { oldValue, newValue in
             if oldValue == true && newValue == false {
                 navigateToEventView = true
@@ -87,7 +85,21 @@ struct HomeView: View {
                 
                 LazyVGrid(columns: columns, spacing: 8) {
                     ForEach(viewModel.featureItem) { item in
-                        FeatureCardView(item: item)
+                        FeatureCardView(item: item) { clickedItem in
+                            if clickedItem.title == "이벤트" {
+                                isShowingCashUnBoxing = true
+                            } else if clickedItem.title == "바로 적립" {
+                                
+                            } else if clickedItem.title == "친구 초대하기" {
+                                
+                            } else if clickedItem.title == "상점" {
+                                
+                            } else if clickedItem.title == "설정" {
+                                
+                            } else if clickedItem.title == "보관함" {
+                                
+                            }
+                        }
                     }
                 }
                 .padding(.horizontal)
