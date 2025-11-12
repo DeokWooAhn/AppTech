@@ -60,7 +60,6 @@ struct HomeView: View {
                     .zIndex(1)
             }
         }
-        .animation(.easeInOut, value: isShowingCashUnBoxing)
         .onChange(of: isShowingCashUnBoxing) { oldValue, newValue in
             if oldValue == true && newValue == false {
                 navigateToEventView = true
@@ -87,7 +86,9 @@ struct HomeView: View {
                     ForEach(viewModel.featureItem) { item in
                         FeatureCardView(item: item) { clickedItem in
                             if clickedItem.title == "이벤트" {
-                                isShowingCashUnBoxing = true
+                                
+                                    isShowingCashUnBoxing = true
+                                
                             } else if clickedItem.title == "바로 적립" {
                                 
                             } else if clickedItem.title == "친구 초대하기" {
