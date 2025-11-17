@@ -14,6 +14,7 @@ struct NewsBannerView: View {
     @State private var offset: CGFloat = 0
     @State private var textWidth: CGFloat = 0
     @State private var containerWidth: CGFloat = 0
+    @State private var isRunning = false
     
     var body: some View {
         HStack(spacing: 8) {
@@ -38,7 +39,7 @@ struct NewsBannerView: View {
                             .background(
                                 GeometryReader { textGeo in
                                     Color.clear
-                                        .onAppear {
+                                        .task {
                                             textWidth = textGeo.size.width
                                             containerWidth = width
                                             startMarquee()
@@ -67,9 +68,10 @@ struct NewsBannerView: View {
     }
     
     func startMarquee() {
-        // 처음 위치는 오른쪽 바깥
+        guard !isRunning else { return }
+        isRunning = true
+        
         offset = containerWidth
-        // 애니메이션 시작
         withAnimation(.linear(duration: 15.0).repeatForever(autoreverses: false)) {
             offset = -textWidth
         }
