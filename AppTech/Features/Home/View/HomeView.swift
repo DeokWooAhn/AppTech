@@ -50,7 +50,7 @@ struct HomeView: View {
     //                }
     //            }
                 .navigationDestination(isPresented: $navigateToEventView) {
-                    CashUnBoxingView()
+//                    CashUnBoxingView()
                 }
             }
             

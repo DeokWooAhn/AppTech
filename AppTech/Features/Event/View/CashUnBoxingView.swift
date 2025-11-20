@@ -8,9 +8,11 @@
 import SwiftUI
 
 struct CashUnBoxingView: View {
+    @StateObject private var viewModel: CashUnBoxingViewModel
     
     let backgroundColor = Color(red: 44/255, green: 47/255, blue: 54/255)
     let cardColor = Color(red: 60/255, green: 63/255, blue: 70/255)
+    
     
     var body: some View {
         NavigationStack {
@@ -95,6 +97,5 @@ struct CashUnBoxingView: View {
 
 struct CashOpenUpView_Previews: PreviewProvider {
     static var previews: some View {
-        CashUnBoxingView()
     }
 }
