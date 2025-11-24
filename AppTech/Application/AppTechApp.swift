@@ -13,7 +13,12 @@ struct AppTechApp: App {
     
     var body: some Scene {
         WindowGroup {
-            HomeView(viewModel: container.makeHomeViewModel())
+            HomeView(
+                viewModel: container.makeHomeViewModel(),
+                cashUnBoxingViewFactory: {
+                    return CashUnBoxingView(viewModel: container.makeCashUnBoxingViewModel())
+                }
+            )
         }
     }
 }

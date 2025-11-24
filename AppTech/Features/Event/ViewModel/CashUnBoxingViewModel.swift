@@ -10,7 +10,7 @@ import Foundation
 @MainActor
 class CashUnBoxingViewModel: ObservableObject {
     @Published var currentCash: Int = 0
-    @Published var remainingCount: Int = 0
+    @Published var cashUnBoxingCount: Int = 0
     @Published var isLoading = false
     
     private let getUserDataUseCase: GetUserDataUseCase

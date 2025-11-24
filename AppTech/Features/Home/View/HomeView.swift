@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel: HomeViewModel
+    let cashUnBoxingViewFactory: () -> CashUnBoxingView
     
     @State private var isShowingCashUnBoxing = false
     @State private var navigateToEventView = false
@@ -50,7 +51,7 @@ struct HomeView: View {
     //                }
     //            }
                 .navigationDestination(isPresented: $navigateToEventView) {
-//                    CashUnBoxingView()
+                    cashUnBoxingViewFactory()
                 }
             }
             

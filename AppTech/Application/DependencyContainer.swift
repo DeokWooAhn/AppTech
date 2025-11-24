@@ -23,4 +23,11 @@ final class DependencyContainer {
             getNewsDataUseCase: self.getNewsDataUseCase
         )
     }
+    
+    @MainActor
+    func makeCashUnBoxingViewModel() -> CashUnBoxingViewModel {
+        return CashUnBoxingViewModel(
+            getUserDataUseCase: self.getUserDataUseCase
+        )
+    }
 }

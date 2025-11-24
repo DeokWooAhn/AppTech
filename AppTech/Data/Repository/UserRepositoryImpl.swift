@@ -12,8 +12,6 @@ class UserRepositoryImpl: UserRepository {
         
         // api 작업
         
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        
         let user = UserItem(name: "dwahn", cash: 10000, ticket: 30, welcomeMode: false)
         
         return user

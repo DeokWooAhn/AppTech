@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CashUnBoxingView: View {
-    @StateObject private var viewModel: CashUnBoxingViewModel
+    @StateObject var viewModel: CashUnBoxingViewModel
     
     let backgroundColor = Color(red: 44/255, green: 47/255, blue: 54/255)
     let cardColor = Color(red: 60/255, green: 63/255, blue: 70/255)
@@ -37,9 +37,12 @@ struct CashUnBoxingView: View {
                                     .foregroundColor(.black)
                             }
                             
-                            Text("7,000")
+                            Text("\(viewModel.currentCash)")
                                 .font(.system(size: 18, weight: .bold))
                                 .foregroundColor(.white)
+                        }
+                        .onAppear {
+                            viewModel.loadInitialData()
                         }
                     }
                     .padding(.vertical, 16)
@@ -97,5 +100,6 @@ struct CashUnBoxingView: View {
 
 struct CashOpenUpView_Previews: PreviewProvider {
     static var previews: some View {
+
     }
 }
