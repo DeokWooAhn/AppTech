@@ -33,9 +33,13 @@ Dependency Injection
 캐시스크린에 클린아키텍처 및 mvvm 패턴을 도입해봤습니다.
 
 
+폴더 구조
+
 <img width="281" height="662" alt="image" src="https://github.com/user-attachments/assets/01840d18-1d98-4c9b-8e06-9f2d0d5796e9" />
 
 
+
+아이폰17 시뮬레이터 시현 영상
 
 https://github.com/user-attachments/assets/37dcb06a-9613-4f17-8b51-181d190c61d9
 
